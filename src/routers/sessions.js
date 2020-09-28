@@ -15,13 +15,13 @@ router.post(
     if (!role || role !== "admin") {
       throw new AuthError();
     }
-    const { name, description, objective, mode, parameters } = req.body;
+    const { name, description, objective, type, parameters } = req.body;
     const Session = sessionModel();
     const sessionDb = await Session({
       name,
       description,
       objective,
-      mode,
+      type,
       parameters,
     }).save();
 
@@ -31,6 +31,7 @@ router.post(
         name: sessionDb.name,
         description: sessionDb.description,
         objective: sessionDb.objective,
+        type: sessionDb.type,
         parameters: sessionDb.parameters,
       },
     });
