@@ -11,23 +11,24 @@ const {
   planingsRouter,
 } = require("./routers");
 
+const baseUrl = "/api/v1/trainfes"
 const app = express();
 
 app.use(express.json());
 
 app.use(bindCurrentNamespace);
 
-app.use("/login", loginRouter);
+app.use(`${baseUrl}/login`, loginRouter);
 
-app.use("/users", usersRouter);
+app.use(`${baseUrl}/users`, usersRouter);
 
-app.use("/register", registersRouter);
+app.use(`${baseUrl}/register`, registersRouter);
 
-app.use("/organization", organizationsRouter);
+app.use(`${baseUrl}/organization`, organizationsRouter);
 
-app.use("/session", sessionsRouter);
+app.use(`${baseUrl}/session`, sessionsRouter);
 
-app.use("/planning", planingsRouter);
+app.use(`${baseUrl}/planning`, planingsRouter);
 
 app.use(errorsMiddleware);
 
@@ -39,7 +40,6 @@ app.listen(5000, () => console.log("API ready port: 5000..."));
       dbName: "trainFESDb",
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
       useCreateIndex: true
     });
   } catch (error) {
