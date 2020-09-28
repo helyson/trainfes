@@ -23,7 +23,6 @@ app.listen(5000, () => console.log("API ready port: 5000..."));
       dbName: "trainFESDb",
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
       useCreateIndex: true
     });
 
@@ -60,46 +59,6 @@ app.listen(5000, () => console.log("API ready port: 5000..."));
         name: "admin organizacion seed",
         phone: "+56200000000",
         email: "admin@organizacion.com",
-        organization: organizationSeedId,
-      }).save(),
-    }).save();
-
-    await Login({
-      rut: "11677143-8",
-      password: bcrypt.hashSync("user1", 10),
-      role: "user",
-      user: await UserTenant({
-        rut: "11677143-8",
-        name: "user 1",
-        lastname: "seed",
-        phone: "+56200000000",
-        email: "user1@organizacion.com",
-        country: "chile",
-        city: "santiago",
-        region: "centro",
-        gender: "m",
-        birthday: new Date("1960/03/16"),
-        insurance: "banmedica",
-        organization: organizationSeedId,
-      }).save(),
-    }).save();
-
-    await Login({
-      rut: "5996755-k",
-      password: bcrypt.hashSync("user2", 10),
-      role: "user",
-      user: await UserTenant({
-        rut: "5996755-k",
-        name: "user 2",
-        lastname: "seed",
-        phone: "+56200000001",
-        email: "user2@organizacion.com",
-        country: "chile",
-        city: "santiago",
-        region: "centro",
-        gender: "m",
-        birthday: new Date("1990/02/05"),
-        insurance: "fonasa",
         organization: organizationSeedId,
       }).save(),
     }).save();
@@ -147,61 +106,85 @@ app.listen(5000, () => console.log("API ready port: 5000..."));
       },
     }).save();
 
-    await userModel().findOneAndUpdate(
-      { rut: "11677143-8" },
-      {
-        $push: {
-          plannings: [
-            await Planning({
-              name: "planificacion sesiones de entrenamento 1 y 2 user 1",
-              links: ["https://www.google.com", "https://docs.mongodb.com/"],
-              planningDate: new Date("2020/10/02"),
-              sessions: [sessionId1, sessionId2],
-            }).save(),
-            await Planning({
-              name: "planificacion sesiones de entrenamento 3 y 4 user 1",
-              links: ["https://www.google.com", "https://docs.mongodb.com/"],
-              planningDate: new Date("2020/10/03"),
-              sessions: [sessionId3, sessionId4],
-            }).save(),
-          ],
-        },
-      }
-    );
+    await Login({
+      rut: "11677143-8",
+      password: bcrypt.hashSync("user1", 10),
+      role: "user",
+      user: await UserTenant({
+        rut: "11677143-8",
+        name: "user 1",
+        lastname: "seed",
+        phone: "+56200000000",
+        email: "user1@organizacion.com",
+        country: "chile",
+        city: "santiago",
+        region: "centro",
+        gender: "m",
+        birthday: new Date("1960/03/16"),
+        insurance: "banmedica",
+        organization: organizationSeedId,
+        plannings: [
+          await Planning({
+            name: "planificacion sesiones de entrenamento 1 y 2 user 1",
+            links: ["https://www.google.com", "https://docs.mongodb.com/"],
+            planningDate: new Date("2020/10/02"),
+            sessions: [sessionId1, sessionId2],
+          }).save(),
+          await Planning({
+            name: "planificacion sesiones de entrenamento 3 y 4 user 1",
+            links: ["https://www.google.com", "https://docs.mongodb.com/"],
+            planningDate: new Date("2020/10/03"),
+            sessions: [sessionId3, sessionId4],
+          }).save(),
+        ],
+      }).save(),
+    }).save();
 
-    await userModel().findOneAndUpdate(
-      { rut: "5996755-k" },
-      {
-        $push: {
-          plannings: [
-            await Planning({
-              name: "planificacion sesiones de entrenamento 1  user 2",
-              links: ["https://www.google.com", "https://docs.mongodb.com/"],
-              planningDate: new Date("2020/10/02"),
-              sessions: [sessionId1],
-            }).save(),
-            await Planning({
-              name: "planificacion sesiones de entrenamento 2 user 2",
-              links: ["https://www.google.com", "https://docs.mongodb.com/"],
-              planningDate: new Date("2020/10/03"),
-              sessions: [sessionId2],
-            }).save(),
-            await Planning({
-              name: "planificacion sesiones de entrenamento 3 user 2",
-              links: ["https://www.google.com", "https://docs.mongodb.com/"],
-              planningDate: new Date("2020/10/03"),
-              sessions: [sessionId3],
-            }).save(),
-            await Planning({
-              name: "planificacion sesiones de entrenamento 2 3 y 4 user 2",
-              links: ["https://www.google.com", "https://docs.mongodb.com/"],
-              planningDate: new Date("2020/10/04"),
-              sessions: [sessionId2, sessionId3, sessionId4],
-            }).save(),
-          ],
-        },
-      }
-    );
+    await Login({
+      rut: "5996755-k",
+      password: bcrypt.hashSync("user2", 10),
+      role: "user",
+      user: await UserTenant({
+        rut: "5996755-k",
+        name: "user 2",
+        lastname: "seed",
+        phone: "+56200000001",
+        email: "user2@organizacion.com",
+        country: "chile",
+        city: "santiago",
+        region: "centro",
+        gender: "m",
+        birthday: new Date("1990/02/05"),
+        insurance: "fonasa",
+        organization: organizationSeedId,
+        plannings: [
+          await Planning({
+            name: "planificacion sesiones de entrenamento 1  user 2",
+            links: ["https://www.google.com", "https://docs.mongodb.com/"],
+            planningDate: new Date("2020/10/02"),
+            sessions: [sessionId1],
+          }).save(),
+          await Planning({
+            name: "planificacion sesiones de entrenamento 2 user 2",
+            links: ["https://www.google.com", "https://docs.mongodb.com/"],
+            planningDate: new Date("2020/10/03"),
+            sessions: [sessionId2],
+          }).save(),
+          await Planning({
+            name: "planificacion sesiones de entrenamento 3 user 2",
+            links: ["https://www.google.com", "https://docs.mongodb.com/"],
+            planningDate: new Date("2020/10/03"),
+            sessions: [sessionId3],
+          }).save(),
+          await Planning({
+            name: "planificacion sesiones de entrenamento 2 3 y 4 user 2",
+            links: ["https://www.google.com", "https://docs.mongodb.com/"],
+            planningDate: new Date("2020/10/04"),
+            sessions: [sessionId2, sessionId3, sessionId4],
+          }).save(),
+        ],
+      }).save(),
+    }).save();
 
     mongoose.disconnect().then(() => console.log("seed finish"));
   } catch (error) {

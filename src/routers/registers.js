@@ -8,7 +8,7 @@ const {AuthError} = require("../errors");
 
 const router = express.Router();
 
-const requestRegister = async (res, role, body, organization) => {
+const requestRegister = async (res, roleUser, body, organization) => {
   const User = userModel();
   const Login = loginModel();
   const {
@@ -25,10 +25,10 @@ const requestRegister = async (res, role, body, organization) => {
     city,
     region,
   } = body;
-  const { user } = await Login({
+  const { user, role } = await Login({
     rut,
     password: bcrypt.hashSync(password, 10),
-    role,
+    role: roleUser,
     user: await User({
       name,
       lastname,
@@ -51,6 +51,7 @@ const requestRegister = async (res, role, body, organization) => {
       email: user.email,
       organization: user.organization._id,
       rut: user.rut,
+      role,
       phone: user.phone,
       birthday: user.birthday,
       insurance: user.insurance,
@@ -92,7 +93,7 @@ router.post(
     const User = userModel({ skipTenant: true });
     const Login = loginModel();
     const { name, email, password, rut, phone } = req.body;
-    const { user } = await Login({
+    const { user, role } = await Login({
       rut,
       password: bcrypt.hashSync(password, 10),
       role: "root",
@@ -108,6 +109,7 @@ router.post(
       user: {
         name: user.name,
         email: user.email,
+        role,
         rut: user.rut,
         phone: user.phone,
       },
