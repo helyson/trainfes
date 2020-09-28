@@ -2,7 +2,7 @@ const { Schema } = require("mongoose");
 const mongoose_delete = require("mongoose-delete");
 const { tenantModel } = require("../../lib/multiTenant");
 
-const ModeEnum = ["flexion", "walking", "sensor"];
+const ModeEnum = ["flexion", "march", "sensor"];
 
 const validateParams = (params) => {
   return  !!params.series && !!params.repeat
@@ -12,7 +12,7 @@ const SessionSchema = new Schema(
     name: String,
     description: String,
     objective: String,
-    mode: {
+    type: {
       type: String,
       enum: ModeEnum,
     },

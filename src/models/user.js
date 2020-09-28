@@ -18,6 +18,7 @@ const UserSchema = new Schema({
   phone: String,
   rut: String,
   lastname: String,
+  coutry: String,
   city: String,
   region: String,
   gender: String,

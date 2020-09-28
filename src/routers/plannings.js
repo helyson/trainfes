@@ -2,7 +2,7 @@ const express = require("express");
 const { routeHelper } = require("../helper/route");
 const { jwtMiddleware } = require("../middleware");
 const { getCurrent } = require("../../lib/storage");
-const {AuthError, FindError} = require("../errors");
+const { AuthError, FindError } = require("../errors");
 const { planningModel, userModel, sessionModel } = require("../models");
 
 const router = express.Router();
@@ -61,7 +61,7 @@ router.get(
         const dateExercise = new Date(planningDate);
         return searchDate.getDate() === dateExercise.getDate();
       })
-      .map(({ sessions, name: planificationName,planningDate: date }) => {
+      .map(({ sessions, name: planificationName, planningDate: date }) => {
         return {
           planificationName,
           date,
@@ -107,7 +107,7 @@ router.post(
       })
       .lean();
     if (!userDb) {
-      throw new FindError({path: "rut", value: rut});
+      throw new FindError({ path: "rut", value: rut });
     }
     const plannig = userDb.plannings.slice(-1).pop();
     res.status(201).json({
