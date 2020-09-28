@@ -1,0 +1,31 @@
+{
+  "name": "trainfes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "seed": "node ./migration/seed.js",
+    "start": "nodemon ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helyson/trainfes.git"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "continuation-local-storage": "^3.2.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
+    "mongoose-delete": "^0.5.2",
+    "nodemon": "^2.0.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/helyson/trainfes/issues"
+  },
+  "homepage": "https://github.com/helyson/trainfes#readme"
+}
